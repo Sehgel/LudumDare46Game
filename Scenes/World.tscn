@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Scenes/Character/Arm.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/CharacterController.gd" type="Script" id=2]
@@ -6,49 +6,187 @@
 [ext_resource path="res://Scripts/Character/Modules/Input.gd" type="Script" id=4]
 [ext_resource path="res://Scripts/Camera/CameraController.gd" type="Script" id=5]
 [ext_resource path="res://Scripts/Camera/MouseInput.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/Scenario/Building1.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scripts/Character/Modules/Inventory.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/Scenario/Capsule.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Textures/UIFrame.png" type="Texture" id=10]
+[ext_resource path="res://Scenes/Scenario/Building2.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Textures/Cement.png" type="Texture" id=12]
+[ext_resource path="res://Scripts/UI/UIItemSelector.gd" type="Script" id=13]
+[ext_resource path="res://Textures/Crosshair.png" type="Texture" id=14]
+[ext_resource path="res://icon.png" type="Texture" id=15]
+[ext_resource path="res://Shaders/BlackAttenuation.shader" type="Shader" id=16]
+[ext_resource path="res://Shaders/Whirl.shader" type="Shader" id=17]
+[ext_resource path="res://Shaders/Blur.shader" type="Shader" id=18]
+[ext_resource path="res://Models/Light1.tres" type="ArrayMesh" id=19]
+[ext_resource path="res://addons/SIsilicon.vfx.lens flare/lens-flare.gd" type="Script" id=20]
+[ext_resource path="res://Scripts/ShaderManager.gd" type="Script" id=21]
 
-[sub_resource type="CapsuleShape" id=1]
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.345098, 0.345098, 0.345098, 1 )
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_ensure_correct_normals = true
+emission_enabled = true
+emission = Color( 1, 1, 1, 1 )
+emission_energy = 16.0
+emission_operator = 0
+emission_on_uv2 = false
+emission_texture = ExtResource( 15 )
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_color = Color( 1, 0.807843, 0.623529, 1 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=4]
+
+[sub_resource type="CapsuleShape" id=5]
 radius = 11.3005
 height = 16.0
 
-[sub_resource type="CubeMesh" id=2]
+[sub_resource type="ProceduralSky" id=6]
 
-[sub_resource type="ConcavePolygonShape" id=3]
-data = PoolVector3Array( -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, -1, 1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, -1, -1, 1, 1, 1, 1, 1, -1, 1, -1, 1, 1, 1, -1, 1, -1, -1, 1, -1, 1, -1, 1, -1, -1, 1, 1, -1, -1, -1, -1, 1, 1, -1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, 1, 1, 1, -1, -1, 1, 1, -1, 1, -1, 1, 1, -1, -1, -1, 1, 1, -1, 1, -1, -1, -1, 1, -1, 1, 1, -1, -1, -1, -1, -1 )
-
-[sub_resource type="PanoramaSky" id=4]
-
-[sub_resource type="Environment" id=5]
+[sub_resource type="Environment" id=7]
 background_mode = 1
-background_sky = SubResource( 4 )
+background_sky = SubResource( 6 )
 ambient_light_color = Color( 0.698039, 0.788235, 0.941176, 1 )
 ambient_light_energy = 0.01
 fog_color = Color( 0.137255, 0.137255, 0.137255, 1 )
 fog_sun_color = Color( 0, 0, 0, 1 )
+ss_reflections_roughness = false
+ssao_enabled = true
+ssao_radius = 24.7
+ssao_intensity = 34.8
+ssao_radius2 = 12.3
+ssao_intensity2 = 28.7
+ssao_bias = 0.769
+ssao_light_affect = 0.32
+ssao_quality = 2
+ssao_edge_sharpness = 2.47
+dof_blur_near_enabled = true
+glow_enabled = true
+glow_strength = 1.27
+
+[sub_resource type="PlaneMesh" id=11]
+
+[sub_resource type="SpatialMaterial" id=12]
+albedo_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+albedo_texture = ExtResource( 12 )
+
+[sub_resource type="ConcavePolygonShape" id=13]
+data = PoolVector3Array( 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1 )
+
+[sub_resource type="StyleBoxTexture" id=14]
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 128, 128 )
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="ShaderMaterial" id=16]
+shader = ExtResource( 17 )
+shader_param/coeficient = 1.0
+
+[sub_resource type="NoiseTexture" id=17]
+
+[sub_resource type="ShaderMaterial" id=18]
+shader = ExtResource( 16 )
+shader_param/coeficient = 0.0
+
+[sub_resource type="ShaderMaterial" id=19]
+shader = ExtResource( 18 )
+shader_param/coeficient = 0.0
+shader_param/amount = 1.694
+
+[sub_resource type="GIProbeData" id=20]
+bounds = AABB( -322.933, -328.262, -299.559, 645.866, 656.524, 599.119 )
+cell_size = 5.12909
+to_cell_xform = Transform( 0.194966, 0, 0, 0, 0.194966, 0, 0, 0, 0.194966, 62.961, 64, 58.404 )
+dynamic_data = PoolIntArray( 0, 8, 128, 128, 128, 1, 0, 0, 0, 1098907648, 0, 0, 0, 0, 0, 1977, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 8355711, 0 )
+dynamic_range = 16
+bias = 4.0
+normal_bias = 4.0
 
 [node name="World" type="Spatial"]
 
+[node name="LensFlare" type="Node" parent="."]
+script = ExtResource( 20 )
+flareStrength = 60.79
+flareBias = 10.959
+flareBlur = 10.0
+distortionQuality = 1
+distortion = 50.0
+ghostCount = 63
+ghostSpacing = 1.0
+haloWidth = 0.688
+
+[node name="Lamppost" type="MeshInstance" parent="."]
+transform = Transform( 0.689506, 0, -0.72428, 0, 1, 0, 0.72428, 0, 0.689506, -11.9776, 0, -16.0357 )
+mesh = ExtResource( 19 )
+material/0 = SubResource( 1 )
+material/1 = SubResource( 2 )
+
+[node name="SpotLight" type="SpotLight" parent="Lamppost"]
+transform = Transform( -6.7484e-08, -0.707107, -0.707107, -2.30405e-07, -0.707107, 0.707107, -1, 2.10639e-07, -1.15202e-07, 6.04816, 72.0652, -0.683054 )
+light_specular = 1.0
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+spot_range = 95.9602
+spot_angle = 69.3612
+
+[node name="Lamppost2" type="MeshInstance" parent="."]
+transform = Transform( 0.689506, 0, -0.72428, 0, 1, 0, 0.72428, 0, 0.689506, -46.8927, 0, 132.744 )
+mesh = ExtResource( 19 )
+material/0 = SubResource( 1 )
+material/1 = SubResource( 2 )
+
+[node name="SpotLight" type="SpotLight" parent="Lamppost2"]
+transform = Transform( -6.7484e-08, -0.707107, -0.707107, -2.30405e-07, -0.707107, 0.707107, -1, 2.10639e-07, -1.15202e-07, 6.04816, 72.0652, -0.683054 )
+light_specular = 1.0
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+spot_range = 95.9602
+spot_angle = 69.3612
+
 [node name="Character" type="KinematicBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.6626, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.6264, 29.4821 )
 script = ExtResource( 2 )
 walk_speed = 100.0
+pickup_mask = 2
+debugging = true
 
 [node name="Camera" type="Camera" parent="Character"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.8856, 7.28198 )
 far = 1000.0
 script = ExtResource( 5 )
-mouse_speed = 2.0
+mouse_speed = 4.0
 
 [node name="Arm" parent="Character/Camera" instance=ExtResource( 1 )]
 transform = Transform( 0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 5.41018, -2.21121, -10.2388 )
 
+[node name="Armature" parent="Character/Camera/Arm" index="0"]
+transform = Transform( 0.98926, 0, 0.146165, 0, 1, 0, -0.146165, 0, 0.98926, -1.5658, 5.31742, -6.78512 )
+
+[node name="Skeleton" parent="Character/Camera/Arm/Armature" index="0"]
+bones/8/bound_children = [ NodePath("BoneAttachment") ]
+
+[node name="Cube" parent="Character/Camera/Arm/Armature/Skeleton" index="0"]
+material_override = SubResource( 3 )
+
+[node name="BoneAttachment" parent="Character/Camera/Arm/Armature/Skeleton" index="1"]
+transform = Transform( 0.0534948, -0.0654412, 0.95929, 0.8064, 0.526325, -0.00906363, -0.523678, 0.803793, 0.0840355, -9.18697, 3.21263, 0.544009 )
+
+[node name="AnimationTree" parent="Character/Camera/Arm" index="2"]
+parameters/playback = SubResource( 4 )
+
 [node name="Input" type="Node" parent="Character/Camera"]
 script = ExtResource( 6 )
-acceleration = 50.0
+acceleration = 100.0
+damping_factor = 0.1
 
 [node name="CollisionShape" type="CollisionShape" parent="Character"]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 6, 0 )
-shape = SubResource( 1 )
+shape = SubResource( 5 )
 
 [node name="Modules" type="Node" parent="Character"]
 
@@ -59,31 +197,219 @@ script = ExtResource( 3 )
 script = ExtResource( 4 )
 damping_factor = 0.925
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 113.708, 0, 0, 0, 1, 0, 0, 0, 113.708, 0, 0, 0 )
-mesh = SubResource( 2 )
-material/0 = null
+[node name="Inventory" type="Node" parent="Character/Modules"]
+script = ExtResource( 8 )
 
-[node name="StaticBody" type="StaticBody" parent="MeshInstance"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 7 )
 
-[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/StaticBody"]
-shape = SubResource( 3 )
+[node name="Capsule" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, -7.45058e-08, -1.56462e-07, -8.3819e-09, 0.999485, -0.0320793, -6.33299e-08, 0.0320785, 0.999485, -0.901627, 30.8104, -16.2882 )
+
+[node name="Capsule2" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, -7.45058e-08, -1.56462e-07, -8.3819e-09, 0.999485, -0.0320793, -6.33299e-08, 0.0320785, 0.999485, 15.2719, 30.8104, -16.2882 )
+type = 1
+
+[node name="Capsule3" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, -7.45058e-08, -1.56462e-07, -8.3819e-09, 0.999485, -0.0320793, -6.33299e-08, 0.0320785, 0.999485, 28.4568, 30.8104, -16.2882 )
+type = 2
+
+[node name="Capsule6" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.644924, -0.0245159, -0.763853, -8.3819e-09, 0.999485, -0.0320793, 0.764246, 0.0206881, 0.644592, 40.0584, 30.8104, -11.8583 )
+
+[node name="Capsule5" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.644924, -0.0245159, -0.763853, -8.3819e-09, 0.999485, -0.0320793, 0.764246, 0.0206881, 0.644592, 50.4891, 30.8104, 0.502254 )
+type = 1
+
+[node name="Capsule4" parent="." instance=ExtResource( 9 )]
+transform = Transform( 0.644924, -0.0245159, -0.763853, -8.3819e-09, 0.999485, -0.0320793, 0.764246, 0.0206881, 0.644592, 58.9923, 30.8104, 10.5788 )
+type = 2
+
+[node name="Building1" parent="." instance=ExtResource( 7 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -96, 0, 269.788 )
+
+[node name="Building3" parent="." instance=ExtResource( 7 )]
+transform = Transform( -1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -157.169, 0.0231171, 173.388 )
+
+[node name="Building4" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, -1.42109e-14, 0, 1, 0, 1.42109e-14, 0, 1, -254.169, 0.0231171, 173.388 )
+
+[node name="Building11" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -76.9715, 0, 189.746 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
-transform = Transform( 11.0427, 0, 0, 0, 16.7678, 0, 0, 0, 11.0427, 10.7668, 20.552, -76.7796 )
-mesh = SubResource( 2 )
-material/0 = null
+transform = Transform( 441.453, 0, 0, 0, 1, 0, 0, 0, 441.453, 0, 0, 0 )
+mesh = SubResource( 11 )
+material/0 = SubResource( 12 )
 
 [node name="StaticBody" type="StaticBody" parent="MeshInstance2"]
 
 [node name="CollisionShape" type="CollisionShape" parent="MeshInstance2/StaticBody"]
-shape = SubResource( 3 )
+shape = SubResource( 13 )
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 5 )
+[node name="Building2" parent="." instance=ExtResource( 11 )]
+transform = Transform( 1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 102.681, 0.802628, 172.856 )
 
-[node name="OmniLight" type="OmniLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6847, 129.082, 0 )
-omni_range = 760.763
-omni_attenuation = 6.9644
-omni_shadow_detail = 0
+[node name="Building5" parent="." instance=ExtResource( 11 )]
+transform = Transform( -4.37112e-08, 0, -1, 0, 1, 0, 1, 0, -4.37112e-08, 230.681, 0.802628, 172.856 )
+
+[node name="UI" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Crosshair" type="TextureRect" parent="UI"]
+modulate = Color( 1, 1, 1, 0.317647 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -960.0
+margin_bottom = -540.0
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 14 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Inventory" type="HBoxContainer" parent="UI"]
+anchor_left = 0.291667
+anchor_top = 0.792593
+anchor_right = 0.708333
+anchor_bottom = 0.938889
+alignment = 1
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Slot0" type="Panel" parent="UI/Inventory"]
+modulate = Color( 1, 1, 1, 0.25098 )
+margin_right = 156.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 14 )
+
+[node name="TextureRect" type="TextureRect" parent="UI/Inventory/Slot0"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blank" type="Panel" parent="UI/Inventory"]
+margin_left = 160.0
+margin_right = 316.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 15 )
+
+[node name="Slot1" type="Panel" parent="UI/Inventory"]
+modulate = Color( 1, 1, 1, 0.25098 )
+margin_left = 320.0
+margin_right = 476.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 14 )
+
+[node name="TextureRect2" type="TextureRect" parent="UI/Inventory/Slot1"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blank2" type="Panel" parent="UI/Inventory"]
+margin_left = 480.0
+margin_right = 636.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 15 )
+
+[node name="Slot2" type="Panel" parent="UI/Inventory"]
+modulate = Color( 1, 1, 1, 0.25098 )
+margin_left = 640.0
+margin_right = 799.0
+margin_bottom = 157.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 14 )
+
+[node name="TextureRect3" type="TextureRect" parent="UI/Inventory/Slot2"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = 1.0
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShaderManager" type="Control" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 21 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Whirl" type="BackBufferCopy" parent="UI/ShaderManager"]
+visible = false
+rect = Rect2( 0, 0, 1920, 1080 )
+
+[node name="TextureRect" type="TextureRect" parent="UI/ShaderManager/Whirl"]
+material = SubResource( 16 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource( 17 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="BlackAttenuation" type="BackBufferCopy" parent="UI/ShaderManager"]
+visible = false
+rect = Rect2( 0, 0, 1920, 1080 )
+
+[node name="TextureRect2" type="TextureRect" parent="UI/ShaderManager/BlackAttenuation"]
+material = SubResource( 18 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 15 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Blur" type="BackBufferCopy" parent="UI/ShaderManager"]
+visible = false
+rect = Rect2( 0, 0, 1920, 1080 )
+
+[node name="TextureRect2" type="TextureRect" parent="UI/ShaderManager/Blur"]
+material = SubResource( 19 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 15 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="GIProbe" type="GIProbe" parent="."]
+extents = Vector3( 322.933, 328.262, 299.559 )
+dynamic_range = 16
+propagation = 1.0
+bias = 4.0
+normal_bias = 4.0
+data = SubResource( 20 )
+
+[editable path="Character/Camera/Arm"]

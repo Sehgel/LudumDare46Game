@@ -670,6 +670,10 @@ bones/20/bound_children = [  ]
 mesh = SubResource( 1 )
 material/0 = null
 
+[node name="BoneAttachment" type="BoneAttachment" parent="Armature/Skeleton"]
+transform = Transform( 0.0575424, -0.0626975, 0.959238, 0.787643, 0.553964, -0.0110405, -0.551078, 0.785222, 0.0843812, -9.07024, 2.4023, -0.245994 )
+bone_name = "Index.3"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
 anims/Idle = SubResource( 2 )
