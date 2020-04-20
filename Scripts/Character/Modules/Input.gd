@@ -9,6 +9,7 @@ export(float) var damping_factor = 0.9
 
 signal click
 signal T_press
+signal Space_press
 
 func pressing_any_button():
 	return abs(horizontal) > 0.25 or abs(vertical) > 0.25
@@ -34,3 +35,5 @@ func _process(delta):
 		emit_signal("click")
 	if Input.is_action_just_pressed("T"):
 		emit_signal("T_press")
+	if Input.is_action_just_pressed("Space"):
+		emit_signal("Space_press")

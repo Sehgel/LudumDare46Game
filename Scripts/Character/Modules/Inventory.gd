@@ -1,23 +1,31 @@
 extends Node
 
-var items : Array
+var items = [null, null, null]
 
-signal on_item_added
-signal on_item_selection_changed
-var selected_index = -1
-
-func _ready():
-	GameManager.INVENTORY = self
-	
+var selected_index = 0
 
 func add_item(item):
-	if(items.size() < 3):
-		items.append(item)
-	else:
-		items[selected_index] = item
-	emit_signal("on_item_added",items)
 	
+	var filled = false
+	for i in range(items.size()):
+		if items[i] == null:
+			items[i] = item
+			filled = true
+			break
 
+	if(not filled):
+		items[selected_index] = item
+		
+	Events.emit_signal("on_inventory_changed",items)
+	
+func remove_item(index):
+	if index >= 0:
+		items[index] = null
+
+	Events.emit_signal("on_inventory_changed",items)
+func remove_selected_item():
+	remove_item(selected_index)
+	
 func is_empty():
 	return items.size() == 0
 
@@ -33,5 +41,9 @@ func change_selected(new_index : int):
 	if(new_index < 0 or new_index >= 3):
 		return
 	selected_index = new_index
-	emit_signal("on_item_selection_changed",new_index)
+	Events.emit_signal("on_inventory_selected_item_changed",new_index)
 
+func get_selected_item():
+	if selected_index < items.size():
+		return items[selected_index]
+	return null

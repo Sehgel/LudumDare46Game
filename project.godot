@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 GameManager="*res://Scripts/GameManager.gd"
+Events="*res://Scripts/Events.gd"
 
 [display]
 
@@ -34,7 +35,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "SIsilicon.vfx.lens flare" )
+enabled=PoolStringArray(  )
 
 [input]
 
@@ -66,6 +67,11 @@ LeftClick={
 T={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"unicode":0,"echo":false,"script":null)
+ ]
+}
+Space={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"unicode":0,"echo":false,"script":null)
  ]
 }
 

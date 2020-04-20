@@ -17,7 +17,7 @@ dest_files=[ "res://.import/Metal.png-ba8b801da35efd0715504b414bbff9a7.s3tc.stex
 [params]
 
 compress/mode=2
-compress/lossy_quality=0.7
+compress/lossy_quality=0.71
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
